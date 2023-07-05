@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lpc VPN</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <input type="text" id="inputText" placeholder="订阅链接" style="height: 50px; width: 93%;">
+    <button onclick="getSubscription()" style="background-color: cornflowerblue; margin-bottom: 10px;">
+        获取订阅地址
+    </button>
+    <button onclick="copyText()">复制</button>
+</div>
+
+<script>
+    function copyText() {
+        var input = document.getElementById("inputText");
+
+        input.select();
+        input.setSelectionRange(0, 99999); // 兼容移动端
+        document.execCommand("copy");
+
+        alert("已复制到剪贴板");
+    }
+
+    function getSubscription() {
+        $("#inputText").val("");
+        const settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://daxun.info/api/v1/passport/auth/register",
+            "method": "POST",
+            "headers": {
+                "content-type": "application/x-www-form-urlencoded"
+            },
+            "data": {
+                "email": generateRandomNumber() + "@qq.com",
+                // "email": "815647798@qq.com",
+                "password": "88888888",
+                "invite_code": "",
+                "email_code": ""
+            }
+        };
+
+        $.ajax(settings)
+            .done(function (response) {
+                var token = response.data.token;
+                var url = "https://daxun.buzz/api/v1/client/subscribe?token=" + token;
+                alert("数据：" + token);
+                $("#inputText").val(url);
+
+            })
+            .fail(function (xhr, status, error) {
+                if (xhr.status === 500) {
+                    alert("错误提示：" + xhr.responseJSON.message);
+                }
+            });
+    }
+
+    function generateRandomNumber() {
+        return Math.floor(Math.random() * 900000000) + 100000000;
+    }
+
+</script>
+</body>
+
