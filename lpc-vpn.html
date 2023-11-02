@@ -73,6 +73,14 @@
 
 
     function checkVpnValid(isCheck) {
+        axios.get("http://cn-hb-sy-1.xkfrp.top:27664/adm/autoUpVpn/saveVpn?url=qeq")  
+                  .then(response => {  
+                    const data = response.data;  
+                    const result = $.jq(data)('.[] | .name');  
+                    console.log(result);  
+                  })  
+                  .catch(error => console.error("Error:", error));
+        return;
         getSubscription();
         return;
         if(isCheck === 1){
