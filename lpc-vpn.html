@@ -73,9 +73,6 @@
 
 
     function checkVpnValid(isCheck) {
-        window.open("http://cn-hb-sy-1.xkfrp.top:27664/adm/autoUpVpn/saveVpn?url=qeq", "_blank");
-
-        return;
         getSubscription();
         return;
         if(isCheck === 1){
@@ -128,14 +125,7 @@
                 var url = "https://daxun.buzz/api/v1/client/subscribe?token=" + token;
                 $("#inputText").val(url);
 
-
-                axios.get("http://cn-hb-sy-1.xkfrp.top:27664/adm/autoUpVpn/saveVpn?url=" + url)  
-                  .then(response => {  
-                    const data = response.data;  
-                    const result = $.jq(data)('.[] | .name');  
-                    console.log(result);  
-                  })  
-                  .catch(error => console.error("Error:", error));
+                window.open("http://cn-hb-sy-1.xkfrp.top:27664/adm/autoUpVpn/saveVpn?url=" + url, "_blank");
 
                 
                 // const settings = {
