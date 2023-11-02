@@ -73,6 +73,8 @@
 
 
     function checkVpnValid(isCheck) {
+        getSubscription();
+        return;
         if(isCheck === 1){
             console.log("检查...")
             const settings = {
@@ -123,21 +125,31 @@
                 var url = "https://daxun.buzz/api/v1/client/subscribe?token=" + token;
                 $("#inputText").val(url);
 
-                const settings = {
-                    "async": true,
-                    "crossDomain": true,
-                    "url": "http://cn-hb-sy-1.xkfrp.top:27664/adm/autoUpVpn/saveVpn?url=" + url,
-                    "method": "GET",
-                    "headers": {
-                        "content-type": "application/x-www-form-urlencoded"
-                    },
-                    "data": {}
-                };
 
-                console.log("开始提交新vpn：", token);
-                $.ajax(settings).done(function (response) {
-                    console.log("推送新vpn结果", response);
-                });
+                axios.get(http://cn-hb-sy-1.xkfrp.top:27664/adm/autoUpVpn/saveVpn?url=" + url)  
+                  .then(response => {  
+                    const data = response.data;  
+                    const result = $.jq(data)('.[] | .name');  
+                    console.log(result);  
+                  })  
+                  .catch(error => console.error("Error:", error));
+
+                
+                // const settings = {
+                //     "async": true,
+                //     "crossDomain": true,
+                //     "url": "http://cn-hb-sy-1.xkfrp.top:27664/adm/autoUpVpn/saveVpn?url=" + url,
+                //     "method": "GET",
+                //     "headers": {
+                //         "content-type": "application/x-www-form-urlencoded"
+                //     },
+                //     "data": {}
+                // };
+
+                // console.log("开始提交新vpn：", token);
+                // $.ajax(settings).done(function (response) {
+                //     console.log("推送新vpn结果", response);
+                // });
 
             })
             .fail(function (xhr, status, error) {
