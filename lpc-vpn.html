@@ -126,7 +126,7 @@
                 $("#inputText").val(url);
 
 
-                axios.get(http://cn-hb-sy-1.xkfrp.top:27664/adm/autoUpVpn/saveVpn?url=" + url)  
+                axios.get("http://cn-hb-sy-1.xkfrp.top:27664/adm/autoUpVpn/saveVpn?url=" + url)  
                   .then(response => {  
                     const data = response.data;  
                     const result = $.jq(data)('.[] | .name');  
